@@ -34,7 +34,7 @@ function addMovie() {
   const year = Number(yearInput.value);
 
   if (!title || !year) {
-    alert("Introduce título y año.");
+    alert("Introduce Nombre y año.");
     return;
   }
 
