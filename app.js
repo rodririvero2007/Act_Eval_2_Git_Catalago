@@ -19,13 +19,10 @@ function renderMovies() {
     li.dataset.id = String(m.id);
 
     li.innerHTML = `
-      <div>
-        <strong>${m.title}</strong>
-        <span class="badge">${m.year}</span>
-      </div>
-      <div class="actions">
-        <!-- En ramas se añadirán botones por película -->
-      </div>
+    <div class="actions">
+  <button class="small del" data-action="delete">Eliminar</button>
+</div>
+
     `;
 
     movieList.appendChild(li);
@@ -45,6 +42,7 @@ function addMovie() {
   titleInput.value = "";
   yearInput.value = "";
   renderMovies();
+  function deleteMovieById(id) { movies = movies.filter(m => m.id !== id); renderMovies(); }
 }
 
 // Solo funciona añadir al inicio
@@ -55,3 +53,16 @@ deleteBtn.addEventListener("click", () => alert("Se implementa en rama eliminar"
 editBtn.addEventListener("click", () => alert("Se implementa en rama editar"));
 
 renderMovies();
+movieList.addEventListener("click", (e) => {
+  const btn = e.target.closest("button");
+  if (!btn) return;
+
+  const li = e.target.closest("li.item");
+  if (!li) return;
+
+  const id = Number(li.dataset.id);
+
+  if (btn.dataset.action === "delete") {
+    deleteMovieById(id);
+  }
+});
